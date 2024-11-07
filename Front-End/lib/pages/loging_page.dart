@@ -1,5 +1,6 @@
 import 'package:chat/pages/signup_page.dart';
 import 'package:chat/pages/home_page.dart';
+import 'package:chat/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -36,30 +37,23 @@ class _loginState extends State<login> {
     }
 
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      User? user = await AuthService.instance.signInWithEmail(email, password);
 
       setState(() {
         isLoading = false;
       });
 
-      if (userCredential.user != null) {
-        Navigator.push(
+      if (user != null) {
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => HomePage()),
         );
       }
-    } on FirebaseAuthException catch (e) {
+    } catch (e) {
       setState(() {
         isLoading = false;
       });
-      if (e.code == 'user-not-found') {
-        showErrorDialog('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        showErrorDialog('Wrong password provided.');
-      } else {
-        showErrorDialog('An error occurred. Please try again.');
-      }
+      showErrorDialog('Login failed. Please check your email and password.');
     }
   }
 
