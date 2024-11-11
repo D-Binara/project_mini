@@ -1,3 +1,4 @@
+import 'package:chat/pages/gps.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/widgets/custom_bottom_nav.dart';
 
@@ -62,24 +63,36 @@ class HomePage extends StatelessWidget {
                       return Column(
                         children: [
                           Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 31, 172, 156),
-                                borderRadius: BorderRadius.circular(50),
-                                image: DecorationImage(
-                                  image: AssetImage(imageList[index]),
-                                  fit: BoxFit.cover,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.3),
-                                    spreadRadius: 5,
-                                    blurRadius: 3,
-                                    offset: const Offset(5, 4.5),
+                            child: GestureDetector(
+                              onTap: () {
+                                if (imageTitles[index] == "Track My Pet") {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => GpsPage()),
+                                  );
+                                }
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 31, 172, 156),
+                                  borderRadius: BorderRadius.circular(50),
+                                  image: DecorationImage(
+                                    image: AssetImage(imageList[index]),
+                                    fit: BoxFit.cover,
                                   ),
-                                ],
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      spreadRadius: 5,
+                                      blurRadius: 3,
+                                      offset: const Offset(5, 4.5),
+                                    ),
+                                  ],
+                                ),
+                                height: 180,
                               ),
-                              height: 180,
                             ),
                           ),
                           const SizedBox(height: 15),

@@ -39,15 +39,14 @@ class _PetRegistrationPageState extends State<PetRegistrationPage> {
   }
 
 void petRegistration() async {
-  // Start the loading indicator
   setState(() {
-    isLoading = true;
+    isLoading = true; // Start the loading indicator
   });
 
   // Retrieve input values
   var petName = petNameController.text.trim();
   var weight = weightController.text.trim();
-  var height = heightController.text.trim();
+  // var height = heightController.text.trim();
   var breed = breedController.text.trim();
   var birthday = _birthdayController.text.trim();
   var gender = selectedGender;
@@ -55,7 +54,7 @@ void petRegistration() async {
   // Validate input fields
   if (petName.isEmpty ||
       weight.isEmpty ||
-      height.isEmpty ||
+      // height.isEmpty ||
       breed.isEmpty ||
       birthday.isEmpty ||
       gender.isEmpty) {
@@ -77,12 +76,14 @@ void petRegistration() async {
       return;
     }
 
-    // Save the pet data in Firestore
-    await FirebaseFirestore.instance.collection('pets').add({
-      'user_id': user.uid, // Reference to the authenticated user
+    // Reference to the user's document in Firestore
+    DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(user.uid);
+
+    // Add the pet data to the 'pets' subcollection under the user document
+    await userDoc.collection('pets').add({
       'pet_name': petName,
       'weight': weight,
-      'height': height,
+      // 'height': height,
       'breed': breed,
       'birthday': birthday,
       'gender': gender,
@@ -101,7 +102,7 @@ void petRegistration() async {
       ),
     );
 
-    // Optionally navigate to another screen after registration
+    // Optionally, navigate to another screen after registration
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => PetRegistrationPage()),

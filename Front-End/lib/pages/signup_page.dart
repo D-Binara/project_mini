@@ -1,4 +1,3 @@
-import 'package:chat/pages/home_page.dart';
 import 'package:chat/pages/loging_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +64,7 @@ class _signUpState extends State<signUp> {
         // Navigate to Home Page on successful registration
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => const login()),
         );
       }
     } on FirebaseAuthException catch (e) {
