@@ -1,4 +1,6 @@
 import 'package:chat/pages/gps.dart';
+import 'package:chat/pages/medicalrecord.dart';
+import 'package:chat/pages/store_page.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/widgets/custom_bottom_nav.dart';
 
@@ -70,6 +72,18 @@ class HomePage extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => GpsPage()),
+                                  );
+                                } else if (imageTitles[index] == "Store") {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => StorePage()),
+                                  );
+                                } else if (imageTitles[index] == "Medical Record") {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MedicalRecord()),
                                   );
                                 }
                               },
