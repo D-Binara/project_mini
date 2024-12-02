@@ -4,6 +4,7 @@ import 'package:chat/pages/community.dart';
 import 'package:chat/pages/home_page.dart';
 import 'package:chat/pages/store_page.dart';
 import 'package:chat/pages/userprofile_page.dart';
+import 'package:flutter/widgets.dart';
 
 class MealPlan extends StatefulWidget {
   MealPlan({Key? key}) : super(key: key);
@@ -30,7 +31,8 @@ class _MealPlanState extends State<MealPlan> {
       return;
     }
 
-    final petDetails = "Age: $age years, Weight: $weight kg ";
+    final petDetails =
+        "Age: $age years, Weight: $weight kg, Species: ${_speciesController.text}";
 
     try {
       setState(() {
@@ -41,7 +43,7 @@ class _MealPlanState extends State<MealPlan> {
       final generatedPlan = await geminiService.generateMealPlan(petDetails);
 
       setState(() {
-        _mealPlan = generatedPlan!;
+        _mealPlan = generatedPlan!.replaceAll(RegExp(r'\*\*'), '').trim();
       });
     } catch (e) {
       setState(() {
@@ -56,18 +58,16 @@ class _MealPlanState extends State<MealPlan> {
       backgroundColor: const Color.fromARGB(255, 249, 246, 244),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Align(
-          alignment: Alignment.center,
-          child: Text(
-            "Meal Plan",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Color(0xffFFB03E),
-              fontSize: 28,
-              fontFamily: 'CustomFont',
-            ),
+        title: const Text(
+          "Meal Plan",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color(0xffFFB03E),
+            fontSize: 28,
+            fontFamily: 'CustomFont',
           ),
         ),
+        centerTitle: true, // Ensures title is centered.
         backgroundColor: Colors.transparent,
         elevation: 1.0,
       ),
@@ -80,18 +80,7 @@ class _MealPlanState extends State<MealPlan> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 70),
-                  const Center(
-                    child: Text(
-                      "Pet's Name",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 75),
                   Container(
                     padding: const EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
