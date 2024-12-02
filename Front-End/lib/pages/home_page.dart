@@ -1,4 +1,5 @@
 import 'package:chat/pages/gps.dart';
+import 'package:chat/pages/mealplan_page.dart';
 import 'package:chat/pages/medicalrecord.dart';
 import 'package:chat/pages/store_page.dart';
 import 'package:flutter/material.dart';
@@ -79,11 +80,19 @@ class HomePage extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => StorePage()),
                                   );
-                                } else if (imageTitles[index] == "Medical Record") {
+                                } else if (imageTitles[index] ==
+                                    "Medical Record") {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => MedicalRecord()),
+                                  );
+                                } else if (imageTitles[index] ==
+                                    "Meal Plan") {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MealPlan()),
                                   );
                                 }
                               },
